@@ -4,6 +4,8 @@ Replication of the BAB factor from Frazzini & Pedersen (2014, JFE) using AQR's o
 
 I replicate the main US results (performance stats, factor regressions, sub-period robustness), extend the analysis to 24 international equity markets, and build a global diversified BAB portfolio as an extension.
 
+![Cumulative returns](figures/01_cumulative_returns.png)
+
 ## Results vs. Paper
 
 | | Paper (1926–2012) | This replication (1931–2025) |
@@ -41,14 +43,18 @@ Positive in every sub-period. The out-of-sample Sharpe (0.74) is actually slight
 
 24/24 countries have positive BAB Sharpe ratios. Top: Canada (1.29), France (1.05), Israel (1.00). Weakest: Ireland (0.02), Austria (0.24), Japan (0.26). Cross-country BAB correlations average 0.10–0.30, which motivates the global extension.
 
+![International Sharpe ratios](figures/05_international.png)
+
 ## Extension: Global Diversified BAB
 
-Risk-parity (inverse-vol weighted) portfolio across 12 major markets, 1990–2025:
+Risk-parity (inverse-vol weighted) portfolio across 12 major markets, 1990–2025. Weights use trailing 36-month volatility, lagged one month to avoid look-ahead bias.
 
-| | Sharpe | Max Drawdown |
-|--|--|--|
-| US only | 0.64 | −54.6% |
-| Global diversified | 1.34 | −23.8% |
+| | Sharpe | t-stat | Max Drawdown |
+|--|--|--|--|
+| US only | 0.64 | 3.83 | −54.6% |
+| Global diversified | 1.34 | 8.04 | −23.8% |
+
+![Global diversified BAB](figures/07_global_bab.png)
 
 Low cross-country correlations do the heavy lifting here — you roughly double the Sharpe and halve the drawdown.
 
@@ -83,3 +89,4 @@ results/                # Output CSVs
 - Frazzini, A. & Pedersen, L.H. (2014). Betting Against Beta. *Journal of Financial Economics*, 111, 1–25.
 - Black, F. (1972). Capital Market Equilibrium with Restricted Borrowing. *Journal of Business*, 45(3), 444–455.
 - Frazzini, A., Kabiller, D. & Pedersen, L.H. (2018). Buffett's Alpha. *Financial Analysts Journal*, 74(4), 35–55.
+- AQR Capital Management. Betting Against Beta: Equity Factors Data, Monthly. https://www.aqr.com/Insights/Datasets/Betting-Against-Beta-Equity-Factors-Monthly
