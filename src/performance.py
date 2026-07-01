@@ -23,24 +23,7 @@ def run_factor_regression(
     factor_names: Optional[List[str]] = None,
     newey_west_lags: int = 6,
 ) -> dict:
-    """
-    Run a time-series factor regression with Newey-West standard errors.
 
-    Parameters
-    ----------
-    returns : pd.Series
-        Excess returns (or self-financing returns like BAB).
-    factors : pd.DataFrame
-        Factor returns (columns = factors).
-    factor_names : list, optional
-        Which columns from factors to use.
-    newey_west_lags : int
-        Number of lags for Newey-West HAC standard errors.
-
-    Returns
-    -------
-    dict with regression results.
-    """
     if factor_names:
         X = factors[factor_names].copy()
     else:
