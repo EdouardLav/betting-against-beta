@@ -23,31 +23,7 @@ def estimate_rolling_beta(
     shrinkage_weight: float = 0.6,
     shrinkage_target: float = 1.0,
 ) -> pd.Series:
-    """
-    Estimate beta for a single asset following FP2014.
 
-    β_hat = ρ * (σ_i / σ_m)  →  then shrink toward 1
-
-    Parameters
-    ----------
-    returns : pd.Series
-        Excess returns of the asset (monthly).
-    market_returns : pd.Series
-        Excess returns of the market (monthly).
-    vol_window : int
-        Rolling window for volatility estimation (months).
-    corr_window : int
-        Rolling window for correlation estimation (months).
-    shrinkage_weight : float
-        Weight on time-series beta (0.6 in the paper).
-    shrinkage_target : float
-        Cross-sectional target for shrinkage (1.0 in the paper).
-
-    Returns
-    -------
-    pd.Series
-        Estimated (shrunk) betas.
-    """
     # Align indexes
     common_idx = returns.index.intersection(market_returns.index)
     r_i = returns.reindex(common_idx)
@@ -102,14 +78,7 @@ def estimate_beta_from_portfolios(
     corr_window: int = 60,
     shrinkage_weight: float = 0.6,
 ) -> pd.DataFrame:
-    """
-    Estimate betas for pre-formed portfolios (e.g., 10 decile portfolios).
-    
-    Since portfolios are already sorted by beta, the shrinkage target
-    is the cross-sectional mean of the portfolio betas at each date.
-    
-    Returns DataFrame of estimated betas.
-    """
+
     # For portfolios, we use the cross-sectional mean as shrinkage target
     betas_ts = pd.DataFrame(index=portfolio_returns.index,
                             columns=portfolio_returns.columns, dtype=float)
