@@ -22,30 +22,7 @@ def construct_bab_from_portfolios(
     n_low: Optional[int] = None,
     n_high: Optional[int] = None,
 ) -> dict:
-    """
-    Construct BAB factor from pre-sorted beta portfolios.
 
-    Uses the median split: portfolios below median beta go into the low-beta
-    portfolio, those above go into the high-beta portfolio.
-
-    Parameters
-    ----------
-    portfolio_returns : DataFrame
-        Monthly returns of beta-sorted portfolios (columns P1 to P10).
-    portfolio_betas : DataFrame
-        Estimated betas for each portfolio (same structure).
-    rf_rate : Series
-        Monthly risk-free rate.
-
-    Returns
-    -------
-    dict with keys:
-        'bab_returns': pd.Series of BAB monthly returns
-        'low_beta_returns': returns of the low-beta portfolio
-        'high_beta_returns': returns of the high-beta portfolio
-        'beta_low': ex-ante beta of low portfolio
-        'beta_high': ex-ante beta of high portfolio
-    """
     # Align all data
     common_idx = (portfolio_returns.index
                   .intersection(portfolio_betas.index)
@@ -103,15 +80,7 @@ def construct_bab_rank_weighted(
     portfolio_betas: pd.DataFrame,
     rf_rate: pd.Series,
 ) -> dict:
-    """
-    Construct BAB factor using rank-weighted portfolios, closer to the paper.
 
-    For N portfolios sorted by beta:
-    - Compute rank z_i = rank(beta_i)
-    - Low-beta weights: proportional to (z_bar - z_i) for z_i < z_bar
-    - High-beta weights: proportional to (z_i - z_bar) for z_i > z_bar
-    - Both normalized to sum to 1
-    """
     common_idx = (portfolio_returns.index
                   .intersection(portfolio_betas.index)
                   .intersection(rf_rate.index))
